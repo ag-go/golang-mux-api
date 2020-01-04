@@ -4,6 +4,10 @@
 
 ```bash
 sudo tar -C /usr/local -xzf go1.13.5.linux-amd64.tar.gz
+
+vim ~/.profile
+
+(append :/usr/local/go/bin to PATH)
 ```
 
 ## Install Mux library
