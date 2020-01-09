@@ -22,6 +22,15 @@ go get github.com/gorilla/mux
 go get cloud.google.com/go/firestore
 ```
 
+## Export Environment variable 
+
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS='/path/to/project-private.key.json'
+```
+
+## How to get the private key JSON file:
+## From the Firebase Console: Project Overview -> Project Settings -> Service Accounts -> Generate new private key
+
 ## Build
 
 ```bash
