@@ -13,7 +13,13 @@ vim ~/.profile
 ## Install Mux library
 
 ```bash
-go get -u github.com/gorilla/mux
+go get github.com/gorilla/mux
+```
+
+## Install Firestore library
+
+```bash
+go get cloud.google.com/go/firestore
 ```
 
 ## Build
@@ -28,3 +34,6 @@ go build
 go run .
 ```
 
+```bash
+go run *.go
+```

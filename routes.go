@@ -2,26 +2,21 @@ package main
 
 import (
 	"encoding/json"
+	"math/rand"
 	"net/http"
-)
 
-type Post struct {
-	Id    int    `json:"id"`
-	Title string `json:"title"`
-	Text  string `json:"text"`
-}
+	"./entity"
+)
 
 var (
-	posts []Post
+	dao FirestoreDao = FirestoreDao{}
 )
 
-func init() {
-	posts = []Post{Post{Id: 1, Title: "title 1", Text: "text 1"}}
-}
+// TODO: Implement Clean Architecture Server -> Controller -> Service -> Repository
 
 func getPosts(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
-	result, err := json.Marshal(posts)
+	result, err := json.Marshal(dao.FindAll())
 	if err != nil {
 		response.WriteHeader(http.StatusInternalServerError)
 		response.Write([]byte(`{"error": "Error marshalling data"}`))
@@ -32,15 +27,15 @@ func getPosts(response http.ResponseWriter, request *http.Request) {
 
 func addPost(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
-	var post Post
+	var post entity.Post
 	err := json.NewDecoder(request.Body).Decode(&post)
 	if err != nil {
 		response.WriteHeader(http.StatusInternalServerError)
 		response.Write([]byte(`{"error": "Error unmarshalling data"}`))
 		return
 	}
-	post.Id = len(posts) + 1
-	posts = append(posts, post)
+	post.ID = rand.Int63()
+	dao.Save(&post)
 	response.WriteHeader(http.StatusOK)
 	result, err := json.Marshal(post)
 	response.Write(result)
