@@ -13,19 +13,31 @@ vim ~/.profile
 ## Install Mux library
 
 ```bash
-go get github.com/gorilla/mux
+go get -u github.com/gorilla/mux
 ```
 
 ## Install Chi library
 
 ```bash
-go get github.com/go-chi/chi
+go get -u github.com/go-chi/chi
 ```
 
 ## Install Firestore library
 
 ```bash
-go get cloud.google.com/go/firestore
+go get -u cloud.google.com/go/firestore
+```
+
+## Install MySQL library
+
+```bash
+go get -u github.com/go-sql-driver/mysql
+```
+
+## Install MongoDB library
+
+```bash
+go get -u go.mongodb.org/mongo-driver
 ```
 
 ## Export Environment variable 
