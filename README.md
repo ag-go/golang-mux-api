@@ -16,6 +16,12 @@ vim ~/.profile
 go get github.com/gorilla/mux
 ```
 
+## Install Chi library
+
+```bash
+go get github.com/go-chi/chi
+```
+
 ## Install Firestore library
 
 ```bash
