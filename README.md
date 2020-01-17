@@ -69,7 +69,7 @@ go test -run NameOfTest
 ## Test (all the tests within the service folder)
 
 ```bash
-go test -run service/*.go
+go test service/*.go
 ```
 
 ## Run
