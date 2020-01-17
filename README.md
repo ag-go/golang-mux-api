@@ -40,6 +40,12 @@ go get -u github.com/go-sql-driver/mysql
 go get -u go.mongodb.org/mongo-driver
 ```
 
+## Install Testify library
+
+```bash
+go get github.com/stretchr/testify
+```
+
 ## Export Environment variable 
 
 ```bash
