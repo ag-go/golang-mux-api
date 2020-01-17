@@ -60,6 +60,17 @@ export GOOGLE_APPLICATION_CREDENTIALS='/path/to/project-private-key.json'
 ```bash
 go build
 ```
+## Test (specific test)
+
+```bash
+go test -run NameOfTest
+```
+
+## Test (all the tests within the service folder)
+
+```bash
+go test -run service/*.go
+```
 
 ## Run
 
