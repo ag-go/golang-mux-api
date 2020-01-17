@@ -1,4 +1,4 @@
-## Golang and MUX router REST API
+## Golang REST API - Clean Architecture Principles
 
 ## Install Golang - Linux
 
