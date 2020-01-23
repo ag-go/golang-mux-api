@@ -11,14 +11,14 @@ import (
 )
 
 var (
-	postRepository repository.PostRepository = repository.NewFirestoreRepository()
+	postRepository repository.PostRepository = repository.NewFirestoreRepository("posts")
 	postService    service.PostService       = service.NewPostService(postRepository)
 	postController controller.PostController = controller.NewPostController(postService)
 	httpRouter     router.Router             = router.NewChiRouter()
 )
 
 func main() {
-	const port string = ":8000"
+	const port string = ":8001"
 
 	httpRouter.GET("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Up and running...")

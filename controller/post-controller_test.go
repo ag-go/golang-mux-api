@@ -65,6 +65,16 @@ func setup() {
 	}
 	postRepo.Save(&post)
 }
+
+func tearDown() {
+	var post entity.Post = entity.Post{
+		ID:    ID,
+		Title: TITLE,
+		Text:  TEXT,
+	}
+	postRepo.Delete(&post)
+}
+
 func TestGetPosts(t *testing.T) {
 
 	// Insert new post
@@ -95,4 +105,7 @@ func TestGetPosts(t *testing.T) {
 	assert.Equal(t, ID, posts[0].ID)
 	assert.Equal(t, TITLE, posts[0].Title)
 	assert.Equal(t, TEXT, posts[0].Text)
+
+	// Cleanup database
+	tearDown()
 }
