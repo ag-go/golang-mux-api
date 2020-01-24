@@ -40,6 +40,12 @@ go get -u github.com/go-sql-driver/mysql
 go get -u go.mongodb.org/mongo-driver
 ```
 
+## Install SQLite 3 Library
+
+```bash
+go get -u github.com/mattn/go-sqlite3
+```
+
 ## Install Testify library
 
 ```bash
