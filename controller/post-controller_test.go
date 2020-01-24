@@ -22,7 +22,6 @@ const (
 )
 
 var (
-	//repository.NewFirestoreRepository("test-posts")
 	postRepo       repository.PostRepository = repository.NewSQLiteRepository()
 	postSrv        service.PostService       = service.NewPostService(postRepo)
 	postController PostController            = NewPostController(postSrv)
