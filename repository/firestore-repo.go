@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 
-	"../entity"
 	"cloud.google.com/go/firestore"
+	"gitlab.com/pragmaticreviews/golang-mux-api/entity"
 	"google.golang.org/api/iterator"
 )
 
@@ -54,7 +54,7 @@ func (r *repo) FindAll() ([]entity.Post, error) {
 	}
 
 	defer client.Close()
-	var posts []entity.Post
+	var posts []entity.Post = []entity.Post{}
 	it := client.Collection(r.CollectionName).Documents(ctx)
 	for {
 		doc, err := it.Next()

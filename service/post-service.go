@@ -4,8 +4,8 @@ import (
 	"errors"
 	"math/rand"
 
-	"../entity"
-	"../repository"
+	"gitlab.com/pragmaticreviews/golang-mux-api/entity"
+	"gitlab.com/pragmaticreviews/golang-mux-api/repository"
 )
 
 type PostService interface {

@@ -1,6 +1,6 @@
 package repository
 
-import "../entity"
+import "gitlab.com/pragmaticreviews/golang-mux-api/entity"
 
 type PostRepository interface {
 	Save(post *entity.Post) (*entity.Post, error)

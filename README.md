@@ -10,43 +10,22 @@ vim ~/.profile
 (append :/usr/local/go/bin to PATH)
 ```
 
-## Install Mux library
+## Go Modules - Initialize the module for the app (from root dir)
 
 ```bash
-go get -u github.com/gorilla/mux
+go mod init gitlab.com/pragmaticreviews/golang-mux-api
 ```
 
-## Install Chi library
+## Go Modules - Download external dependencies
 
 ```bash
-go get -u github.com/go-chi/chi
+go mod download  
 ```
 
-## Install Firestore library
+# The go command uses the go.sum file to ensure that future downloads of these modules retrieve the same bits as the first download (it keeps an initial hash)
+#Both go.mod and go.sum should be checked into version control.
 
-```bash
-go get -u cloud.google.com/go/firestore
-```
-
-## Install MySQL library
-
-```bash
-go get -u github.com/go-sql-driver/mysql
-```
-
-## Install MongoDB library
-
-```bash
-go get -u go.mongodb.org/mongo-driver
-```
-
-## Install Testify library
-
-```bash
-go get github.com/stretchr/testify
-```
-
-## Export Environment variable 
+## Export Environment variable (Firestore)
 
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS='/path/to/project-private-key.json'
@@ -80,4 +59,14 @@ go run .
 
 ```bash
 go run *.go
+```
+
+## Docker
+
+```bash
+docker build -t golang-api .
+```
+
+```bash
+docker run -p 8000:8000 golang-api
 ```

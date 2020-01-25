@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"../entity"
-	"../errors"
-	"../service"
+	"gitlab.com/pragmaticreviews/golang-mux-api/entity"
+	"gitlab.com/pragmaticreviews/golang-mux-api/errors"
+	"gitlab.com/pragmaticreviews/golang-mux-api/service"
 )
 
 type controller struct{}
