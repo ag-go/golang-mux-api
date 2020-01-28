@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 
-	"../entity"
 	"cloud.google.com/go/firestore"
+	"gitlab.com/pragmaticreviews/golang-mux-api/entity"
 	"google.golang.org/api/iterator"
 )
 
@@ -73,6 +73,11 @@ func (r *repo) FindAll() ([]entity.Post, error) {
 		posts = append(posts, post)
 	}
 	return posts, nil
+}
+
+//FindByID: TODO
+func (r *repo) FindByID(id string) (*entity.Post, error) {
+	return nil, nil
 }
 
 //Delete: TODO

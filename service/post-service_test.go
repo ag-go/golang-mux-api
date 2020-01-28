@@ -3,9 +3,9 @@ package service
 import (
 	"testing"
 
-	"../entity"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"gitlab.com/pragmaticreviews/golang-mux-api/entity"
 )
 
 type MockRepository struct {

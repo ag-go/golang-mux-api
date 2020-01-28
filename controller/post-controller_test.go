@@ -10,9 +10,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"../entity"
-	"../repository"
-	"../service"
+	"gitlab.com/pragmaticreviews/golang-mux-api/cache"
+	"gitlab.com/pragmaticreviews/golang-mux-api/entity"
+	"gitlab.com/pragmaticreviews/golang-mux-api/repository"
+	"gitlab.com/pragmaticreviews/golang-mux-api/service"
 )
 
 const (
@@ -22,10 +23,10 @@ const (
 )
 
 var (
-	//repository.NewFirestoreRepository("test-posts")
 	postRepo       repository.PostRepository = repository.NewSQLiteRepository()
 	postSrv        service.PostService       = service.NewPostService(postRepo)
-	postController PostController            = NewPostController(postSrv)
+	postCh         cache.PostCache           = cache.NewRedisCache("localhost:6379", 0, 10)
+	postController PostController            = NewPostController(postSrv, postCh)
 )
 
 func TestAddPost(t *testing.T) {
@@ -106,6 +107,41 @@ func TestGetPosts(t *testing.T) {
 	assert.Equal(t, ID, posts[0].ID)
 	assert.Equal(t, TITLE, posts[0].Title)
 	assert.Equal(t, TEXT, posts[0].Text)
+
+	// Cleanup database
+	tearDown(ID)
+}
+
+func TestGetPostByID(t *testing.T) {
+
+	// Insert new post
+	setup()
+
+	// Create new HTTP request
+	req, _ := http.NewRequest("GET", "/posts/123", nil)
+
+	// Assing HTTP Request handler Function (controller function)
+	handler := http.HandlerFunc(postController.GetPostByID)
+	// Record the HTTP Response
+	response := httptest.NewRecorder()
+	// Dispatch the HTTP Request
+	handler.ServeHTTP(response, req)
+
+	// Assert HTTP status
+	status := response.Code
+	if status != http.StatusOK {
+		t.Errorf("Handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	// Decode HTTP response
+	var post entity.Post
+	json.NewDecoder(io.Reader(response.Body)).Decode(&post)
+
+	// Assert HTTP response
+	assert.Equal(t, ID, post.ID)
+	assert.Equal(t, TITLE, post.Title)
+	assert.Equal(t, TEXT, post.Text)
 
 	// Cleanup database
 	tearDown(ID)
