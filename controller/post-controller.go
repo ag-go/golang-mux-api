@@ -37,6 +37,7 @@ func (*controller) GetPosts(response http.ResponseWriter, request *http.Request)
 	if err != nil {
 		response.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(response).Encode(errors.ServiceError{Message: "Error getting the posts"})
+		return
 	}
 	response.WriteHeader(http.StatusOK)
 	json.NewEncoder(response).Encode(posts)

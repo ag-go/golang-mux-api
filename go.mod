@@ -4,6 +4,7 @@ go 1.12
 
 require (
 	cloud.google.com/go/firestore v1.1.1
+	github.com/aws/aws-sdk-go v1.28.9
 	github.com/go-chi/chi v4.0.3+incompatible
 	github.com/go-redis/redis/v7 v7.0.0-beta.5
 	github.com/gorilla/mux v1.7.3
