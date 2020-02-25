@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 
-	"../entity"
 	"cloud.google.com/go/firestore"
+	"gitlab.com/pragmaticreviews/golang-mux-api/entity"
 	"google.golang.org/api/iterator"
 )
 

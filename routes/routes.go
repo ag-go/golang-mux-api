@@ -1,19 +1,19 @@
-package main
+package routes
 
 import (
 	"encoding/json"
 	"math/rand"
 	"net/http"
 
-	"./entity"
-	"./repository"
+	"gitlab.com/pragmaticreviews/golang-mux-api/entity"
+	"gitlab.com/pragmaticreviews/golang-mux-api/repository"
 )
 
 var (
 	repo repository.PostRepository = repository.NewPostRepository()
 )
 
-func getPosts(response http.ResponseWriter, request *http.Request) {
+func GetPosts(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
 	posts, err := repo.FindAll()
 	if err != nil {
@@ -24,7 +24,7 @@ func getPosts(response http.ResponseWriter, request *http.Request) {
 	json.NewEncoder(response).Encode(posts)
 }
 
-func addPost(response http.ResponseWriter, request *http.Request) {
+func AddPost(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
 	var post entity.Post
 	err := json.NewDecoder(request.Body).Decode(&post)
