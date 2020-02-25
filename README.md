@@ -10,16 +10,10 @@ vim ~/.profile
 (append :/usr/local/go/bin to PATH)
 ```
 
-## Install Mux library
+## Go Modules Setup
 
 ```bash
-go get github.com/gorilla/mux
-```
-
-## Install Firestore library
-
-```bash
-go get cloud.google.com/go/firestore
+go mod init gitlab.com/pragmaticreviews/golang-mux-api
 ```
 
 ## Export Environment variable 
