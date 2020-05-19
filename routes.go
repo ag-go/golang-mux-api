@@ -5,8 +5,9 @@ import (
 	"net/http"
 )
 
+// Post data structure
 type Post struct {
-	Id    int    `json:"id"`
+	ID    int    `json:"id"`
 	Title string `json:"title"`
 	Text  string `json:"text"`
 }
@@ -16,7 +17,7 @@ var (
 )
 
 func init() {
-	posts = []Post{Post{Id: 1, Title: "title 1", Text: "text 1"}}
+	posts = []Post{{1, "title 1", "text 1"}}
 }
 
 func getPosts(response http.ResponseWriter, request *http.Request) {
@@ -39,7 +40,7 @@ func addPost(response http.ResponseWriter, request *http.Request) {
 		response.Write([]byte(`{"error": "Error unmarshalling data"}`))
 		return
 	}
-	post.Id = len(posts) + 1
+	post.ID = len(posts) + 1
 	posts = append(posts, post)
 	response.WriteHeader(http.StatusOK)
 	result, err := json.Marshal(post)
