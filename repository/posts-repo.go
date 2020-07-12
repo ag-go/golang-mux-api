@@ -12,6 +12,7 @@ import (
 type PostRepository interface {
 	Save(post *entity.Post) (*entity.Post, error)
 	FindAll() ([]entity.Post, error)
+	FindByID(id string) (*entity.Post, error)
 }
 
 type repo struct{}
@@ -22,24 +23,20 @@ func NewPostRepository() PostRepository {
 }
 
 const (
-	projectId      string = "pragmatic-reviews"
+	projectID      string = "pragmatic-reviews"
 	collectionName string = "posts"
 )
 
 func (*repo) Save(post *entity.Post) (*entity.Post, error) {
 	ctx := context.Background()
-	client, err := firestore.NewClient(ctx, projectId)
+	client, err := firestore.NewClient(ctx, projectID)
 	if err != nil {
 		log.Fatalf("Failed to create a Firestore Client: %v", err)
 		return nil, err
 	}
 
 	defer client.Close()
-	_, _, err = client.Collection(collectionName).Add(ctx, map[string]interface{}{
-		"ID":    post.ID,
-		"Title": post.Title,
-		"Text":  post.Text,
-	})
+	_, err = client.Collection(collectionName).Doc(post.ID).Set(ctx, post)
 	if err != nil {
 		log.Fatalf("Failed adding a new post: %v", err)
 		return nil, err
@@ -49,7 +46,7 @@ func (*repo) Save(post *entity.Post) (*entity.Post, error) {
 
 func (*repo) FindAll() ([]entity.Post, error) {
 	ctx := context.Background()
-	client, err := firestore.NewClient(ctx, projectId)
+	client, err := firestore.NewClient(ctx, projectID)
 	if err != nil {
 		log.Fatalf("Failed to create a Firestore Client: %v", err)
 		return nil, err
@@ -68,11 +65,33 @@ func (*repo) FindAll() ([]entity.Post, error) {
 			return nil, err
 		}
 		post := entity.Post{
-			ID:    doc.Data()["ID"].(int64),
+			ID:    doc.Data()["ID"].(string),
 			Title: doc.Data()["Title"].(string),
 			Text:  doc.Data()["Text"].(string),
 		}
 		posts = append(posts, post)
 	}
 	return posts, nil
+}
+
+func (*repo) FindByID(id string) (*entity.Post, error) {
+	ctx := context.Background()
+	client, err := firestore.NewClient(ctx, projectID)
+	if err != nil {
+		log.Fatalf("Failed to create a Firestore Client: %v", err)
+		return nil, err
+	}
+
+	defer client.Close()
+	dsnap, err := client.Collection(collectionName).Doc(id).Get(ctx)
+	if err != nil {
+		println(err.Error())
+		return nil, err
+	}
+	post := &entity.Post{
+		ID:    dsnap.Data()["ID"].(string),
+		Title: dsnap.Data()["Title"].(string),
+		Text:  dsnap.Data()["Text"].(string),
+	}
+	return post, nil
 }

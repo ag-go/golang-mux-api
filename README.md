@@ -40,3 +40,25 @@ go run .
 ```bash
 go run *.go
 ```
+
+## Testing Find by ID
+
+```bash
+
+POST http://localhost:8000/posts
+{
+    "id": "1",
+    "title": "Title 1",
+    "text": "Description 1"
+}
+
+
+GET http://localhost:8000/posts/1/
+
+{
+    "id": "1",
+    "title": "Title 1",
+    "text": "Description 1"
+}
+
+```
